@@ -10,20 +10,27 @@
     "format": "prettier . --write --cache",
     "check-types": "tsc --noEmit",
     "check": "pnpm run check-types && pnpm run lint && pnpm run format",
-    "shadcn:add": "pnpm dlx shadcn@latest add"
+    "shadcn:add": "pnpm dlx shadcn@latest add",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.10",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slot": "^1.2.3",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "drizzle-orm": "^0.44.4",
     "lucide-react": "^0.536.0",
     "next": "15.4.5",
     "next-themes": "^0.4.6",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "sonner": "^2.0.6",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.0.14"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
@@ -33,6 +40,7 @@
     "@types/node": "^24.1.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",
