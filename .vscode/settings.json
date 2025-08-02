@@ -1,3 +1,20 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classFunctions": [
+    "tw",
+    "clsx",
+    "tw\\.[a-z-]+",
+    "cn",
+    "twMerge",
+    "cva"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2
 }
