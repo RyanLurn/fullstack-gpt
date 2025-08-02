@@ -1,0 +1,7 @@
+# Ignore artifacts:
+build
+coverage
+# Ignore lock files
+pnpm-lock.yaml
+# Ignore type declaration files
+*.d.ts
