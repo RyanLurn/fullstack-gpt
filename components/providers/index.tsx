@@ -11,7 +11,7 @@ function Providers({ children }: { children: React.ReactNode }) {
       enableColorScheme
     >
       {children}
-      <Toaster />
+      <Toaster closeButton richColors position="top-center" />
     </ThemeProvider>
   );
 }
