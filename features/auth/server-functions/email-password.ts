@@ -6,11 +6,8 @@ import { auth } from "@/features/auth";
 import { emailPasswordSignUpSchema } from "@/features/auth/validators/email-password";
 
 async function signUpEmailPassword(formData: FormData) {
-  const result = emailPasswordSignUpSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password")
-  });
+  const rawFields = Object.fromEntries(formData.entries());
+  const result = emailPasswordSignUpSchema.safeParse(rawFields);
 
   if (!result.success) {
     const errorTree = z.treeifyError(result.error);
@@ -18,11 +15,12 @@ async function signUpEmailPassword(formData: FormData) {
     return errorTree;
   }
 
-  await auth.api.signUpEmail({
+  const data = await auth.api.signUpEmail({
     body: {
       ...result.data
     }
   });
+  console.log("User signed up with data:", data);
 
   redirect("/admin");
 }
