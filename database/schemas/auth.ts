@@ -1,18 +1,18 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { timestamps } from "@/database/helpers/timestamps";
 
-export const user = sqliteTable("user", {
+const user = sqliteTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: integer("email_verified", { mode: "boolean" })
-    .$defaultFn(() => false)
+    .default(false)
     .notNull(),
   image: text("image"),
   ...timestamps
 });
 
-export const session = sqliteTable("session", {
+const session = sqliteTable("session", {
   id: text("id").primaryKey(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
   token: text("token").notNull().unique(),
@@ -24,7 +24,7 @@ export const session = sqliteTable("session", {
   ...timestamps
 });
 
-export const account = sqliteTable("account", {
+const account = sqliteTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
@@ -41,14 +41,16 @@ export const account = sqliteTable("account", {
     mode: "timestamp"
   }),
   scope: text("scope"),
-  password: text("password"), // Hased by Better Auth
+  password: text("password"), // Hashed by Better Auth
   ...timestamps
 });
 
-export const verification = sqliteTable("verification", {
+const verification = sqliteTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
   ...timestamps
 });
+
+export { user, session, account, verification };
