@@ -28,7 +28,24 @@ export default tseslint.config(
     rules: {
       "react-refresh/only-export-components": [
         "error",
-        { allowExportNames: ["metadata"] }
+        {
+          allowExportNames: [
+            "experimental_ppr",
+            "dynamic",
+            "dynamicParams",
+            "revalidate",
+            "fetchCache",
+            "preferredRegion",
+            "maxDuration",
+            "generateStaticParams",
+            "generateImageMetadata",
+            "metadata",
+            "generateMetadata",
+            "generateSitemaps",
+            "viewport",
+            "generateViewport"
+          ]
+        }
       ]
     }
   },
