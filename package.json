@@ -58,5 +58,9 @@
     "tw-animate-css": "^1.3.6",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   }
 }
