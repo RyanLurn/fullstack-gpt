@@ -2,7 +2,6 @@ import { useSearchParams } from "next/navigation";
 import { capitalizeFirstLetter } from "better-auth";
 import { DialogContent } from "@/components/ui/dialog";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { UserProfileCloseButton } from "@/features/auth/components/user-profile/close-button";
 import { UserProfileHeader } from "@/features/auth/components/user-profile/header";
 import { UserProfileSidebar } from "@/features/auth/components/user-profile/sidebar";
 
@@ -12,10 +11,7 @@ function UserProfile() {
   const activeTab = searchParams.get("tab") || "profile";
 
   return (
-    <DialogContent
-      className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]"
-      showCloseButton={false}
-    >
+    <DialogContent className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]">
       <UserProfileHeader />
       <SidebarProvider className="items-start">
         <UserProfileSidebar />
@@ -33,7 +29,6 @@ function UserProfile() {
           </div>
         </main>
       </SidebarProvider>
-      <UserProfileCloseButton />
     </DialogContent>
   );
 }
