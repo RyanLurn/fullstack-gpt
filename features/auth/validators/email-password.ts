@@ -22,8 +22,6 @@ const emailPasswordSignUpSchema = z.object({
       MAX_PASSWORD_LENGTH,
       `Please enter a password with at most ${MAX_PASSWORD_LENGTH} characters`
     )
-    .trim()
-    .normalize()
 });
 
 type EmailPasswordSignUpSchemaType = z.infer<typeof emailPasswordSignUpSchema>;

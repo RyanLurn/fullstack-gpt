@@ -25,6 +25,7 @@ async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
     if (error instanceof APIError) {
       return { errors: [error.message], properties: {} };
     } else {
+      console.error("Unexpected error during sign up:", error);
       return { errors: ["Something went wrong"], properties: {} };
     }
   }

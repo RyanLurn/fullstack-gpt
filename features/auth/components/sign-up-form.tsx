@@ -22,7 +22,7 @@ function SignUpForm() {
   );
 
   return (
-    <form action={formAction} className="w-full max-w-sm">
+    <form action={formAction} className="w-full max-w-sm" noValidate>
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Sign up</CardTitle>
