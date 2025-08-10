@@ -8,7 +8,7 @@ export default async function AdminPage() {
     headers: await headers()
   });
 
-  if (!session) {
+  if (!session?.user) {
     redirect("/sign-in");
   }
 
