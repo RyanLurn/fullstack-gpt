@@ -1,4 +1,5 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { CircleUserRound, Paintbrush } from "lucide-react";
 import {
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/sidebar";
 
 function UserProfileSidebar() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -28,10 +28,6 @@ function UserProfileSidebar() {
     [searchParams]
   );
 
-  const handleTabChange = (tab: string) => {
-    router.replace(pathname + "?" + createQueryString("tab", tab));
-  };
-
   return (
     <Sidebar collapsible="none" className="hidden md:flex">
       <SidebarHeader className="ml-2 text-2xl font-bold">Account</SidebarHeader>
@@ -40,21 +36,28 @@ function UserProfileSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  onClick={() => handleTabChange("profile")}
-                  isActive={activeTab === "profile"}
-                >
-                  <CircleUserRound />
-                  <span>Profile</span>
+                <SidebarMenuButton isActive={activeTab === "profile"} asChild>
+                  <Link
+                    href={pathname + "?" + createQueryString("tab", "profile")}
+                  >
+                    <CircleUserRound />
+                    <span>Profile</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton
-                  onClick={() => handleTabChange("preferences")}
                   isActive={activeTab === "preferences"}
+                  asChild
                 >
-                  <Paintbrush />
-                  <span>Preferences</span>
+                  <Link
+                    href={
+                      pathname + "?" + createQueryString("tab", "preferences")
+                    }
+                  >
+                    <Paintbrush />
+                    <span>Preferences</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
