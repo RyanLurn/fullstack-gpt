@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -26,6 +26,7 @@ function UserButton({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [userProfileOpen, setUserProfileOpen] = useState(isUserProfileOpen);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -35,6 +36,20 @@ function UserButton({
     },
     [searchParams]
   );
+
+  function handleClose() {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("userProfile");
+    params.delete("tab");
+    router.replace(pathname + "?" + params.toString());
+  }
+
+  function handleUserProfileOpenChange(open: boolean) {
+    setUserProfileOpen(open);
+    if (!open) {
+      handleClose();
+    }
+  }
 
   async function signOut() {
     try {
@@ -52,7 +67,7 @@ function UserButton({
   }
 
   return (
-    <Dialog defaultOpen={isUserProfileOpen}>
+    <Dialog open={userProfileOpen} onOpenChange={handleUserProfileOpenChange}>
       <DropdownMenu>
         <DropdownMenuTrigger>
           <UserAvatar name={name} image={image} />
