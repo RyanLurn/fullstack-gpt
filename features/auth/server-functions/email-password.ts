@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { APIError } from "better-auth";
 import * as z from "zod";
 import { auth } from "@/features/auth";
 import { emailPasswordSignUpSchema } from "@/features/auth/validators/email-password";
@@ -11,18 +12,24 @@ async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
 
   if (!result.success) {
     const errorTree = z.treeifyError(result.error);
-    console.log("Error tree:", JSON.stringify(errorTree));
     return errorTree;
   }
 
-  const data = await auth.api.signUpEmail({
-    body: {
-      ...result.data
-    }
-  });
-  console.log("User signed up with data:", JSON.stringify(data));
+  try {
+    await auth.api.signUpEmail({
+      body: {
+        ...result.data
+      }
+    });
 
-  redirect("/admin");
+    redirect("/admin");
+  } catch (error) {
+    if (error instanceof APIError) {
+      return { errors: [error.message], properties: {} };
+    } else {
+      return { errors: ["Something went wrong"], properties: {} };
+    }
+  }
 }
 
 export { signUpEmailPassword };
