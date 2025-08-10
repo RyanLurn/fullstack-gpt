@@ -15,7 +15,7 @@ export default async function AdminPage() {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-      <div className="fixed top-2 right-2">
+      <div className="fixed top-3 right-3">
         <UserButton name={session.user.name} image={session.user.image} />
       </div>
       <h1>Welcome {session.user.name}</h1>
