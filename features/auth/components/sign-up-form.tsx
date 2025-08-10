@@ -30,6 +30,12 @@ function SignUpForm() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-y-6">
+            {state?.errors && (
+              <FormAlert
+                title="Sign up failed"
+                description={state.errors.join(". ")}
+              />
+            )}
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="name">Name</Label>
               <Input
@@ -39,13 +45,12 @@ function SignUpForm() {
                 placeholder="Your name"
                 required
               />
-              {state?.properties?.name?.errors?.map(error => (
+              {state?.properties?.name?.errors && (
                 <FormAlert
-                  key={error}
                   title="Invalid name"
-                  description={error}
+                  description={state.properties.name.errors.join(". ")}
                 />
-              ))}
+              )}
             </div>
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="email">Email</Label>
@@ -56,13 +61,12 @@ function SignUpForm() {
                 placeholder="Your best email"
                 required
               />
-              {state?.properties?.email?.errors?.map(error => (
+              {state?.properties?.email?.errors && (
                 <FormAlert
-                  key={error}
                   title="Invalid email"
-                  description={error}
+                  description={state.properties.email.errors.join(". ")}
                 />
-              ))}
+              )}
             </div>
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="password">Password</Label>
@@ -73,13 +77,12 @@ function SignUpForm() {
                 placeholder="A secure password"
                 required
               />
-              {state?.properties?.password?.errors?.map(error => (
+              {state?.properties?.password?.errors && (
                 <FormAlert
-                  key={error}
                   title="Invalid password"
-                  description={error}
+                  description={state.properties.password.errors.join(". ")}
                 />
-              ))}
+              )}
             </div>
           </div>
         </CardContent>
