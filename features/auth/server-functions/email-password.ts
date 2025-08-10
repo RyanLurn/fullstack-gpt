@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { APIError } from "better-auth";
+import { APIError } from "better-auth/api";
 import * as z from "zod";
 import { auth } from "@/features/auth";
 import { emailPasswordSignUpSchema } from "@/features/auth/validators/email-password";
@@ -21,8 +21,6 @@ async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
         ...result.data
       }
     });
-
-    redirect("/admin");
   } catch (error) {
     if (error instanceof APIError) {
       return { errors: [error.message], properties: {} };
@@ -30,6 +28,8 @@ async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
       return { errors: ["Something went wrong"], properties: {} };
     }
   }
+
+  redirect("/admin");
 }
 
 export { signUpEmailPassword };
