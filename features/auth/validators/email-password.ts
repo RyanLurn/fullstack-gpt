@@ -4,6 +4,19 @@ import {
   MIN_PASSWORD_LENGTH
 } from "@/features/auth/lib/constants";
 
+const emailSchema = z.email("Please enter a real email").trim().normalize();
+
+const passwordSchema = z
+  .string()
+  .min(
+    MIN_PASSWORD_LENGTH,
+    `Please enter a password with at least ${MIN_PASSWORD_LENGTH} characters`
+  )
+  .max(
+    MAX_PASSWORD_LENGTH,
+    `Please enter a password with at most ${MAX_PASSWORD_LENGTH} characters`
+  );
+
 const emailPasswordSignUpSchema = z.object({
   name: z
     .string()
@@ -11,20 +24,14 @@ const emailPasswordSignUpSchema = z.object({
     .max(747, "Seriously, your name breaks the world record?")
     .trim()
     .normalize(),
-  email: z.email("Please enter a real email").trim().normalize(),
-  password: z
-    .string()
-    .min(
-      MIN_PASSWORD_LENGTH,
-      `Please enter a password with at least ${MIN_PASSWORD_LENGTH} characters`
-    )
-    .max(
-      MAX_PASSWORD_LENGTH,
-      `Please enter a password with at most ${MAX_PASSWORD_LENGTH} characters`
-    )
+  email: emailSchema,
+  password: passwordSchema
 });
 
-type EmailPasswordSignUpSchemaType = z.infer<typeof emailPasswordSignUpSchema>;
+const emailPasswordSignInSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+  rememberMe: z.boolean().default(true)
+});
 
-export { emailPasswordSignUpSchema };
-export type { EmailPasswordSignUpSchemaType };
+export { emailPasswordSignUpSchema, emailPasswordSignInSchema };
