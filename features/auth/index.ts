@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { db } from "@/database";
+import { account, session, user, verification } from "@/database/schemas/auth";
 import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH
@@ -9,7 +10,13 @@ import {
 
 const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: "sqlite"
+    provider: "sqlite",
+    schema: {
+      user,
+      account,
+      session,
+      verification
+    }
   }),
   emailAndPassword: {
     enabled: true,

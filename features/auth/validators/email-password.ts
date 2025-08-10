@@ -11,7 +11,7 @@ const emailPasswordSignUpSchema = z.object({
     .max(747, "Seriously, your name breaks the world record?")
     .trim()
     .normalize(),
-  email: z.email("Please enter a valid email").trim().normalize(),
+  email: z.email("Please enter a real email").trim().normalize(),
   password: z
     .string()
     .min(
@@ -26,4 +26,7 @@ const emailPasswordSignUpSchema = z.object({
     .normalize()
 });
 
+type EmailPasswordSignUpSchemaType = z.infer<typeof emailPasswordSignUpSchema>;
+
 export { emailPasswordSignUpSchema };
+export type { EmailPasswordSignUpSchemaType };

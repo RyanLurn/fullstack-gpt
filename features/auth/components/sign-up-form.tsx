@@ -1,0 +1,96 @@
+"use client";
+
+import { useActionState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FormAlert } from "@/features/auth/components/form-alert";
+import { signUpEmailPassword } from "@/features/auth/server-functions/email-password";
+
+function SignUpForm() {
+  const [state, formAction, isPending] = useActionState(
+    signUpEmailPassword,
+    undefined
+  );
+
+  return (
+    <form action={formAction} className="w-full max-w-sm">
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Sign up</CardTitle>
+          <CardDescription>Welcome, let's create your account</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-y-6">
+            <div className="flex flex-col gap-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                name="name"
+                id="name"
+                type="text"
+                placeholder="Your name"
+                required
+              />
+              {state?.properties?.name?.errors?.map(error => (
+                <FormAlert
+                  key={error}
+                  title="Invalid name"
+                  description={error}
+                />
+              ))}
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                name="email"
+                id="email"
+                type="email"
+                placeholder="Your best email"
+                required
+              />
+              {state?.properties?.email?.errors?.map(error => (
+                <FormAlert
+                  key={error}
+                  title="Invalid email"
+                  description={error}
+                />
+              ))}
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                name="password"
+                id="password"
+                type="password"
+                placeholder="A secure password"
+                required
+              />
+              {state?.properties?.password?.errors?.map(error => (
+                <FormAlert
+                  key={error}
+                  title="Invalid password"
+                  description={error}
+                />
+              ))}
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="flex-col gap-y-2">
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending ? "Signing up..." : "Sign up"}
+          </Button>
+        </CardFooter>
+      </Card>
+    </form>
+  );
+}
+
+export { SignUpForm };
