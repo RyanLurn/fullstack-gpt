@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormAlert } from "@/features/auth/components/form-alert";
-import { EmailField } from "@/features/auth/components/form-fields/email";
-import { PasswordField } from "@/features/auth/components/form-fields/password";
+import { FormAlert } from "@/features/auth/components/form/alert";
+import { EmailField } from "@/features/auth/components/form/fields/email";
+import { PasswordField } from "@/features/auth/components/form/fields/password";
 import { signUpEmailPassword } from "@/features/auth/server-functions/email-password";
 
 function SignUpForm() {

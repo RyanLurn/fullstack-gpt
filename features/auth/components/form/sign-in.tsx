@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { FormAlert } from "@/features/auth/components/form-alert";
-import { EmailField } from "@/features/auth/components/form-fields/email";
-import { PasswordField } from "@/features/auth/components/form-fields/password";
+import { FormAlert } from "@/features/auth/components/form/alert";
+import { EmailField } from "@/features/auth/components/form/fields/email";
+import { PasswordField } from "@/features/auth/components/form/fields/password";
 import { signInEmailPassword } from "@/features/auth/server-functions/email-password";
 
 function SignInForm() {
