@@ -3,8 +3,13 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/features/auth";
 import { UserButton } from "@/features/auth/components/user-button";
+import type { ServerComponentSearchParamsType } from "@/lib/types";
 
-export default async function AdminPage() {
+export default async function AdminPage({
+  searchParams
+}: {
+  searchParams: ServerComponentSearchParamsType;
+}) {
   const session = await auth.api.getSession({
     headers: await headers()
   });
@@ -13,10 +18,16 @@ export default async function AdminPage() {
     redirect("/sign-in");
   }
 
+  const isUserProfileOpen = (await searchParams)["userProfile"] === "open";
+
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-4">
       <div className="fixed top-3 right-3">
-        <UserButton name={session.user.name} image={session.user.image} />
+        <UserButton
+          isUserProfileOpen={isUserProfileOpen}
+          name={session.user.name}
+          image={session.user.image}
+        />
       </div>
       <h1>Welcome {session.user.name}</h1>
     </div>
