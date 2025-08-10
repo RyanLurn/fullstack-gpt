@@ -31,7 +31,9 @@ const emailPasswordSignUpSchema = z.object({
 const emailPasswordSignInSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
-  rememberMe: z.boolean().default(true)
+  rememberMe: z
+    .optional(z.literal("on"))
+    .transform(value => (value === "on" ? true : false))
 });
 
 export { emailPasswordSignUpSchema, emailPasswordSignInSchema };

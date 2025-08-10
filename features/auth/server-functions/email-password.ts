@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { APIError } from "better-auth/api";
 import * as z from "zod";
@@ -49,7 +50,8 @@ async function signInEmailPassword(_initialState: unknown, formData: FormData) {
     await auth.api.signInEmail({
       body: {
         ...result.data
-      }
+      },
+      headers: await headers()
     });
   } catch (error) {
     if (error instanceof APIError) {
