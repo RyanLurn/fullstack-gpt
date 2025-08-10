@@ -13,6 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/features/auth/components/form-alert";
+import { EmailField } from "@/features/auth/components/form-fields/email";
+import { PasswordField } from "@/features/auth/components/form-fields/password";
 import { signUpEmailPassword } from "@/features/auth/server-functions/email-password";
 
 function SignUpForm() {
@@ -52,38 +54,8 @@ function SignUpForm() {
                 />
               )}
             </div>
-            <div className="flex flex-col gap-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                name="email"
-                id="email"
-                type="email"
-                placeholder="Your best email"
-                required
-              />
-              {state?.properties?.email?.errors && (
-                <FormAlert
-                  title="Invalid email"
-                  description={state.properties.email.errors.join(". ")}
-                />
-              )}
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                name="password"
-                id="password"
-                type="password"
-                placeholder="A secure password"
-                required
-              />
-              {state?.properties?.password?.errors && (
-                <FormAlert
-                  title="Invalid password"
-                  description={state.properties.password.errors.join(". ")}
-                />
-              )}
-            </div>
+            <EmailField errors={state?.properties?.email?.errors} />
+            <PasswordField errors={state?.properties?.password?.errors} />
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-y-2">
