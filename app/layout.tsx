@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Providers } from "@/components/providers";
 
 const geistSans = Geist({
@@ -30,9 +29,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="fixed top-2 right-2">
-            <ModeToggle />
-          </div>
           <div className="h-screen w-screen">{children}</div>
         </Providers>
       </body>
