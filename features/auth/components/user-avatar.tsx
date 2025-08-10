@@ -5,7 +5,7 @@ function UserAvatar({ name, image }: Pick<UserType, "name" | "image">) {
   return (
     <Avatar>
       <AvatarImage src={image ?? undefined} />
-      <AvatarFallback>{name.slice(0, 2).toUpperCase()}</AvatarFallback>
+      <AvatarFallback>{(name ?? "").slice(0, 2).toUpperCase()}</AvatarFallback>
     </Avatar>
   );
 }

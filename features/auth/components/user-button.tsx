@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,13 +16,18 @@ function UserButton({ name, image }: Pick<UserType, "name" | "image">) {
   const router = useRouter();
 
   async function signOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/sign-in");
+    try {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push("/sign-in");
+          }
         }
-      }
-    });
+      });
+    } catch (error) {
+      console.error("Failed to sign out:", error);
+      toast.error("Failed to sign out");
+    }
   }
 
   return (
