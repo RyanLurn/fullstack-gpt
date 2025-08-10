@@ -72,7 +72,10 @@ function UserButton({
         <DropdownMenuTrigger>
           <UserAvatar name={name} image={image} />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent
+          align="end"
+          onCloseAutoFocus={e => e.preventDefault()}
+        >
           <DropdownMenuItem onClick={() => void signOut()}>
             Sign out
           </DropdownMenuItem>

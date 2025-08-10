@@ -11,7 +11,10 @@ function UserProfile() {
   const activeTab = searchParams.get("tab") || "profile";
 
   return (
-    <DialogContent className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]">
+    <DialogContent
+      className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]"
+      onOpenAutoFocus={e => e.preventDefault()}
+    >
       <UserProfileHeader />
       <SidebarProvider className="items-start">
         <UserProfileSidebar />
