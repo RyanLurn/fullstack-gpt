@@ -3,6 +3,7 @@ import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH
 } from "@/features/auth/lib/constants";
+import { nameSchema } from "@/features/auth/validators/profile";
 
 const emailSchema = z.email("Please enter a real email").trim().normalize();
 
@@ -18,12 +19,7 @@ const passwordSchema = z
   );
 
 const emailPasswordSignUpSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Please enter your name")
-    .max(747, "Seriously, your name breaks the world record?")
-    .trim()
-    .normalize(),
+  name: nameSchema,
   email: emailSchema,
   password: passwordSchema
 });

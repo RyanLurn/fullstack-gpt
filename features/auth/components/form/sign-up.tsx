@@ -10,10 +10,9 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { FormAlert } from "@/features/auth/components/form/alert";
 import { EmailField } from "@/features/auth/components/form/fields/email";
+import { NameField } from "@/features/auth/components/form/fields/name";
 import { PasswordField } from "@/features/auth/components/form/fields/password";
 import { signUpEmailPassword } from "@/features/auth/server-functions/email-password";
 
@@ -38,22 +37,7 @@ function SignUpForm() {
                 description={state.errors.join(". ")}
               />
             )}
-            <div className="flex flex-col gap-y-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                name="name"
-                id="name"
-                type="text"
-                placeholder="Your name"
-                required
-              />
-              {state?.properties?.name?.errors && (
-                <FormAlert
-                  title="Invalid name"
-                  description={state.properties.name.errors.join(". ")}
-                />
-              )}
-            </div>
+            <NameField errors={state?.properties?.name?.errors} />
             <EmailField errors={state?.properties?.email?.errors} />
             <PasswordField errors={state?.properties?.password?.errors} />
           </div>

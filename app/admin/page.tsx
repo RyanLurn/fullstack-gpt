@@ -28,6 +28,8 @@ export default async function AdminPage({
           isUserProfileOpen={isUserProfileOpen}
           name={session.user.name}
           image={session.user.image}
+          email={session.user.email}
+          emailVerified={session.user.emailVerified}
         />
       </div>
       <h1>Welcome {session.user.name}</h1>

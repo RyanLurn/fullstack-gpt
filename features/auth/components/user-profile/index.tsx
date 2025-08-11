@@ -3,9 +3,16 @@ import { DialogContent } from "@/components/ui/dialog";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { UserProfileHeader } from "@/features/auth/components/user-profile/header";
 import { UserProfileSidebar } from "@/features/auth/components/user-profile/sidebar";
+import { ProfileTab } from "@/features/auth/components/user-profile/tabs/profile";
+import type { UserType } from "@/features/auth/lib/types";
 import { capitalizeFirstLetter } from "@/lib/utils";
 
-function UserProfile() {
+function UserProfile({
+  name,
+  image,
+  email,
+  emailVerified
+}: Pick<UserType, "name" | "image" | "email" | "emailVerified">) {
   const searchParams = useSearchParams();
 
   const activeTab = searchParams.get("tab") || "profile";
@@ -18,18 +25,29 @@ function UserProfile() {
       <UserProfileHeader />
       <SidebarProvider className="items-start">
         <UserProfileSidebar />
-        <main className="flex h-[480px] flex-1 flex-col overflow-hidden">
-          <h1 className="m-4 scroll-m-20 text-xl font-semibold tracking-tight">
-            {capitalizeFirstLetter(activeTab)}
-          </h1>
-          <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-video max-w-3xl rounded-xl bg-muted/50"
-              />
-            ))}
-          </div>
+        <main className="flex h-[480px] flex-1 flex-col overflow-hidden p-4">
+          {activeTab === "profile" ? (
+            <ProfileTab
+              name={name}
+              image={image}
+              email={email}
+              emailVerified={emailVerified}
+            />
+          ) : (
+            <>
+              <h1 className="m-4 scroll-m-20 text-xl font-semibold tracking-tight">
+                {capitalizeFirstLetter(activeTab)}
+              </h1>
+              <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="aspect-video max-w-3xl rounded-xl bg-muted/50"
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </main>
       </SidebarProvider>
     </DialogContent>
