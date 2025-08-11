@@ -3,7 +3,7 @@ import type { UserType } from "@/features/auth/lib/types";
 
 function UserAvatar({ name, image }: Pick<UserType, "name" | "image">) {
   return (
-    <Avatar>
+    <Avatar className="size-10">
       <AvatarImage src={image ?? undefined} />
       <AvatarFallback>{(name ?? "").slice(0, 2).toUpperCase()}</AvatarFallback>
     </Avatar>
