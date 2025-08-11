@@ -9,7 +9,7 @@ const timestamps = {
   updatedAt: integer("updated_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(strftime('%s', 'now'))`)
-    .$onUpdateFn(() => sql`(strftime('%s', 'now'))`)
+    .$onUpdateFn(() => new Date())
 };
 
 export { timestamps };
