@@ -38,7 +38,7 @@ function UpdateProfileForm({ parentUrl }: { parentUrl: string }) {
           </div>
         </CardContent>
         <CardFooter className="flex gap-x-2">
-          <Button variant="secondary" disabled={isPending}>
+          <Button variant="secondary" disabled={isPending} asChild>
             <Link href={parentUrl} replace>
               Cancel
             </Link>
