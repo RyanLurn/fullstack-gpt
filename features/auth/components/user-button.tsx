@@ -85,7 +85,7 @@ function UserButton({
           </DialogTrigger>
         </DropdownMenuContent>
       </DropdownMenu>
-      <UserProfile />
+      <UserProfile name={name} image={image} />
     </Dialog>
   );
 }
