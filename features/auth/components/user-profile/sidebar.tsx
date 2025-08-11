@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
 import { CircleUserRound, Paintbrush } from "lucide-react";
 import {
   Sidebar,
@@ -12,21 +10,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from "@/components/ui/sidebar";
+import { useUrlState } from "@/hooks/use-url-state";
 
 function UserProfileSidebar() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { searchParams, constructUrlState } = useUrlState();
 
   const activeTab = searchParams.get("tab") || "profile";
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   return (
     <Sidebar collapsible="none" className="hidden md:flex">
@@ -38,7 +27,13 @@ function UserProfileSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton isActive={activeTab === "profile"} asChild>
                   <Link
-                    href={pathname + "?" + createQueryString("tab", "profile")}
+                    href={constructUrlState({
+                      searchParamsToSet: {
+                        tab: "profile"
+                      },
+                      swap: false
+                    })}
+                    replace
                   >
                     <CircleUserRound />
                     <span>Profile</span>
@@ -51,9 +46,13 @@ function UserProfileSidebar() {
                   asChild
                 >
                   <Link
-                    href={
-                      pathname + "?" + createQueryString("tab", "preferences")
-                    }
+                    href={constructUrlState({
+                      searchParamsToSet: {
+                        tab: "preferences"
+                      },
+                      swap: false
+                    })}
+                    replace
                   >
                     <Paintbrush />
                     <span>Preferences</span>

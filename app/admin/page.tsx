@@ -3,12 +3,13 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/features/auth";
 import { UserButton } from "@/features/auth/components/user-button";
-import type { ServerComponentSearchParamsType } from "@/lib/types";
 
 export default async function AdminPage({
   searchParams
 }: {
-  searchParams: ServerComponentSearchParamsType;
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
 }) {
   const session = await auth.api.getSession({
     headers: await headers()

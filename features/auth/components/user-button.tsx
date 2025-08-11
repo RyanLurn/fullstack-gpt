@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -15,6 +14,7 @@ import { UserAvatar } from "@/features/auth/components/user-avatar";
 import { UserProfile } from "@/features/auth/components/user-profile";
 import { authClient } from "@/features/auth/lib/client";
 import type { UserType } from "@/features/auth/lib/types";
+import { useUrlState } from "@/hooks/use-url-state";
 
 function UserButton({
   isUserProfileOpen,
@@ -23,31 +23,19 @@ function UserButton({
 }: {
   isUserProfileOpen: boolean;
 } & Pick<UserType, "name" | "image">) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [userProfileOpen, setUserProfileOpen] = useState(isUserProfileOpen);
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams]
-  );
-
-  function handleClose() {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("userProfile");
-    params.delete("tab");
-    router.replace(pathname + "?" + params.toString());
-  }
+  const { router, constructUrlState, setUrlState } = useUrlState();
 
   function handleUserProfileOpenChange(open: boolean) {
     setUserProfileOpen(open);
     if (!open) {
-      handleClose();
+      setUrlState({
+        searchParamsToSet: {
+          userProfile: undefined,
+          tab: undefined
+        },
+        swap: false
+      });
     }
   }
 
@@ -82,13 +70,13 @@ function UserButton({
           <DialogTrigger asChild>
             <DropdownMenuItem asChild>
               <Link
-                href={
-                  pathname +
-                  "?" +
-                  createQueryString("userProfile", "open") +
-                  "&" +
-                  createQueryString("tab", "profile")
-                }
+                href={constructUrlState({
+                  searchParamsToSet: {
+                    userProfile: "open",
+                    tab: "profile"
+                  },
+                  swap: false
+                })}
                 replace
               >
                 Manage account
