@@ -1,9 +1,9 @@
 import { useSearchParams } from "next/navigation";
-import { capitalizeFirstLetter } from "better-auth";
 import { DialogContent } from "@/components/ui/dialog";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { UserProfileHeader } from "@/features/auth/components/user-profile/header";
 import { UserProfileSidebar } from "@/features/auth/components/user-profile/sidebar";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 function UserProfile() {
   const searchParams = useSearchParams();
