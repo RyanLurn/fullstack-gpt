@@ -11,7 +11,7 @@ function ProfileDetails({ name, image }: Pick<UserType, "name" | "image">) {
   const isUpdateProfileOpen = searchParams.get("updateProfile") === "open";
 
   return (
-    <div className="flex w-full items-center gap-x-4">
+    <div className="flex h-12 w-full items-center gap-x-4">
       <h2 className="w-1/3 font-semibold">Profile</h2>
       <div className="flex w-2/3 items-center justify-between">
         {isUpdateProfileOpen ? (

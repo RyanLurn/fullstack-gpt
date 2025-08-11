@@ -19,10 +19,12 @@ import { useUrlState } from "@/hooks/use-url-state";
 function UserButton({
   isUserProfileOpen,
   name,
-  image
+  image,
+  email,
+  emailVerified
 }: {
   isUserProfileOpen: boolean;
-} & Pick<UserType, "name" | "image">) {
+} & Pick<UserType, "name" | "image" | "email" | "emailVerified">) {
   const [userProfileOpen, setUserProfileOpen] = useState(isUserProfileOpen);
   const { router, constructUrlState, setUrlState } = useUrlState();
 
@@ -85,7 +87,12 @@ function UserButton({
           </DialogTrigger>
         </DropdownMenuContent>
       </DropdownMenu>
-      <UserProfile name={name} image={image} />
+      <UserProfile
+        name={name}
+        image={image}
+        email={email}
+        emailVerified={emailVerified}
+      />
     </Dialog>
   );
 }
