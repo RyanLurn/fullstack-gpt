@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import { RedirectType, redirect } from "next/navigation";
 import { APIError } from "better-auth/api";
 import * as z from "zod";
 import { auth } from "@/features/auth";
@@ -33,6 +34,8 @@ async function updateProfile(_initialState: unknown, formData: FormData) {
       return { errors: ["Something went wrong"], properties: {} };
     }
   }
+
+  redirect("/admin?userProfile=open&tab=profile", RedirectType.replace);
 }
 
 export { updateProfile };
