@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { RedirectType, redirect } from "next/navigation";
 import { APIError } from "better-auth/api";
@@ -24,8 +23,6 @@ async function updateProfile(_initialState: unknown, formData: FormData) {
       },
       headers: await headers()
     });
-
-    revalidatePath("/admin");
   } catch (error) {
     if (error instanceof APIError) {
       return { errors: [error.message], properties: {} };
