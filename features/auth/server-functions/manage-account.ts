@@ -8,6 +8,7 @@ import { auth } from "@/features/auth";
 import { profileUpdateSchema } from "@/features/auth/validators/manage-account";
 
 async function updateProfile(_initialState: unknown, formData: FormData) {
+  const redirectUrl = formData.get("redirectUrl") as string;
   const rawFields = Object.fromEntries(formData.entries());
   const result = profileUpdateSchema.safeParse(rawFields);
 
@@ -32,7 +33,10 @@ async function updateProfile(_initialState: unknown, formData: FormData) {
     }
   }
 
-  redirect("/admin?userProfile=open&tab=profile", RedirectType.replace);
+  redirect(
+    redirectUrl || "/admin?userProfile=open&tab=profile",
+    RedirectType.replace
+  );
 }
 
 export { updateProfile };

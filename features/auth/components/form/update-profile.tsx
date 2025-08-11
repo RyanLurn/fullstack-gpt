@@ -21,6 +21,7 @@ function UpdateProfileForm({ parentUrl }: { parentUrl: string }) {
 
   return (
     <form action={formAction} className="w-full" noValidate>
+      <input type="hidden" name="redirectUrl" value={parentUrl} />
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Update profile</CardTitle>
