@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useActionState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ import { FormAlert } from "@/features/auth/components/form/alert";
 import { NameField } from "@/features/auth/components/form/fields/name";
 import { updateProfile } from "@/features/auth/server-functions/manage-account";
 
-function UpdateProfileForm({ handleCancel }: { handleCancel: () => void }) {
+function UpdateProfileForm({ parentUrl }: { parentUrl: string }) {
   const [state, formAction, isPending] = useActionState(
     updateProfile,
     undefined
@@ -36,12 +37,10 @@ function UpdateProfileForm({ handleCancel }: { handleCancel: () => void }) {
           </div>
         </CardContent>
         <CardFooter className="flex gap-x-2">
-          <Button
-            variant="secondary"
-            disabled={isPending}
-            onClick={handleCancel}
-          >
-            Cancel
+          <Button variant="secondary" disabled={isPending}>
+            <Link href={parentUrl} replace>
+              Cancel
+            </Link>
           </Button>
           <Button type="submit" disabled={isPending}>
             {isPending ? <Loader2Icon className="animate-spin" /> : "Submit"}
