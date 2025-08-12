@@ -27,18 +27,15 @@ function UpdateProfileForm({ parentUrl }: { parentUrl: string }) {
           <CardTitle>Update profile</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-y-6">
+          <fieldset disabled={isPending} className="flex flex-col gap-y-6">
             {state?.errors && (
               <FormAlert
                 title="Update profile failed"
                 description={state.errors.join(". ")}
               />
             )}
-            <NameField
-              errors={state?.properties?.name?.errors}
-              isDisabled={isPending}
-            />
-          </div>
+            <NameField errors={state?.properties?.name?.errors} />
+          </fieldset>
         </CardContent>
         <CardFooter className="flex gap-x-2">
           <Button variant="secondary" disabled={isPending} asChild>

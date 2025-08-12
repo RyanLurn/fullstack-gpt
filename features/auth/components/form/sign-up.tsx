@@ -31,26 +31,17 @@ function SignUpForm() {
           <CardDescription>Welcome, let's create your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-y-6">
+          <fieldset disabled={isPending} className="flex flex-col gap-y-6">
             {state?.errors && (
               <FormAlert
                 title="Sign up failed"
                 description={state.errors.join(". ")}
               />
             )}
-            <NameField
-              errors={state?.properties?.name?.errors}
-              isDisabled={isPending}
-            />
-            <EmailField
-              errors={state?.properties?.email?.errors}
-              isDisabled={isPending}
-            />
-            <PasswordField
-              errors={state?.properties?.password?.errors}
-              isDisabled={isPending}
-            />
-          </div>
+            <NameField errors={state?.properties?.name?.errors} />
+            <EmailField errors={state?.properties?.email?.errors} />
+            <PasswordField errors={state?.properties?.password?.errors} />
+          </fieldset>
         </CardContent>
         <CardFooter className="flex-col gap-y-2">
           <Button type="submit" className="w-full" disabled={isPending}>

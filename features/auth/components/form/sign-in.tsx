@@ -32,31 +32,20 @@ function SignInForm() {
           <CardDescription>Welcome back</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-y-6">
+          <fieldset disabled={isPending} className="flex flex-col gap-y-6">
             {state?.errors && (
               <FormAlert
                 title="Sign in failed"
                 description={state.errors.join(". ")}
               />
             )}
-            <EmailField
-              errors={state?.properties?.email?.errors}
-              isDisabled={isPending}
-            />
-            <PasswordField
-              errors={state?.properties?.password?.errors}
-              isDisabled={isPending}
-            />
+            <EmailField errors={state?.properties?.email?.errors} />
+            <PasswordField errors={state?.properties?.password?.errors} />
             <div className="flex items-center gap-3">
-              <Checkbox
-                name="rememberMe"
-                id="rememberMe"
-                defaultChecked
-                disabled={isPending}
-              />
+              <Checkbox name="rememberMe" id="rememberMe" defaultChecked />
               <Label htmlFor="rememberMe">Remember me</Label>
             </div>
-          </div>
+          </fieldset>
         </CardContent>
         <CardFooter className="flex-col gap-y-2">
           <Button type="submit" className="w-full" disabled={isPending}>
