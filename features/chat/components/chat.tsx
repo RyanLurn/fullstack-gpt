@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { type UIMessage, useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 
 function Chat({
   id,
@@ -13,8 +14,16 @@ function Chat({
   const [prompt, setPrompt] = useState("");
   const { messages, sendMessage } = useChat({
     id,
-    messages: initialMessages
+    messages: initialMessages,
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+      // only send the last message (the user's prompt) to the server:
+      prepareSendMessagesRequest({ id, messages }) {
+        return { body: { id, message: messages[messages.length - 1] } };
+      }
+    })
   });
+
   return (
     <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages.map(message => (
