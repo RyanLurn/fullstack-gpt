@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,6 +47,12 @@ function SignUpForm() {
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? "Signing up..." : "Sign up"}
           </Button>
+          <div className="flex w-full items-center justify-center gap-x-2">
+            <span>Already have an account?</span>
+            <Link href="/sign-in" className="underline">
+              Sign in
+            </Link>
+          </div>
         </CardFooter>
       </Card>
     </form>
