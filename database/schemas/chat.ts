@@ -1,4 +1,5 @@
 import type { UIDataTypes, UIMessagePart, UITools } from "ai";
+import { relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { timestamps } from "@/database/helpers/timestamps";
 import { userId } from "@/database/helpers/user-id";
@@ -24,4 +25,15 @@ const message = sqliteTable("message", {
   ...timestamps
 });
 
-export { chat, message };
+const chatRelations = relations(chat, ({ many }) => ({
+  messages: many(message)
+}));
+
+const messageRelations = relations(message, ({ one }) => ({
+  chat: one(chat, {
+    fields: [message.chatId],
+    references: [chat.id]
+  })
+}));
+
+export { chat, message, chatRelations, messageRelations };

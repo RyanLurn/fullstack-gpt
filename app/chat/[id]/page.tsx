@@ -16,6 +16,6 @@ export default async function ChatPage({
     redirect("/sign-in");
   }
   const { id } = await params;
-  const chatId = await getChat({ id, userId: session.user.id });
-  return <div>Chat {chatId}</div>;
+  const chat = await getChat({ id, userId: session.user.id });
+  return <div>Chat {chat.id}</div>;
 }

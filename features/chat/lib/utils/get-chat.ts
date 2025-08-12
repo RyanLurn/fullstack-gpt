@@ -1,24 +1,24 @@
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/database";
 import { chat } from "@/database/schemas/chat";
 
 async function getChat({ id, userId }: { id: string; userId: string }) {
-  const result = await db.select().from(chat).where(eq(chat.id, id));
-  const foundChat = result[0];
+  const foundChat = await db.query.chat.findFirst({
+    where: and(eq(chat.id, id), eq(chat.userId, userId)),
+    with: {
+      messages: true
+    }
+  });
 
   if (foundChat === undefined) {
-    notFound();
-  }
-
-  if (foundChat.userId !== userId) {
     console.error(
-      `User with id "${userId}" requested chat with id "${id}", but it does not belong to them.`
+      `Chat with id "${id}" not found or user "${userId}" does not have access.`
     );
     notFound();
   }
 
-  return foundChat.id;
+  return foundChat;
 }
 
 export { getChat };
