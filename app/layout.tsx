@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sparkle",
-  description: "A template for Next.js apps"
+  title: "Fullstack GPT",
+  description: "A template for AI chat apps"
 };
 
 export default function RootLayout({

@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1754158035190,
-      "tag": "0000_windy_morgan_stark",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1754703775363,
-      "tag": "0001_cute_revanche",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1754730334222,
-      "tag": "0002_brief_phalanx",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1754731041957,
-      "tag": "0003_flimsy_norman_osborn",
+      "when": 1754958580242,
+      "tag": "0000_tan_mimic",
       "breakpoints": true
     }
   ]
