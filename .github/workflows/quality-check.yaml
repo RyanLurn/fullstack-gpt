@@ -3,8 +3,28 @@ name: Code Quality Check
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "**.yml"
+      - "**.json"
+      - "**.sql"
+      - "LICENSE.md"
+      - ".gitignore"
+      - ".gitattributes"
+      - ".env.example"
+      - "devlog/**"
   pull_request:
     branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "**.yml"
+      - "**.json"
+      - "**.sql"
+      - "LICENSE.md"
+      - ".gitignore"
+      - ".gitattributes"
+      - ".env.example"
+      - "devlog/**"
 
 jobs:
   quality-check:
