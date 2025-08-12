@@ -34,7 +34,10 @@ function UpdateProfileForm({ parentUrl }: { parentUrl: string }) {
                 description={state.errors.join(". ")}
               />
             )}
-            <NameField errors={state?.properties?.name?.errors} />
+            <NameField
+              errors={state?.properties?.name?.errors}
+              isDisabled={isPending}
+            />
           </div>
         </CardContent>
         <CardFooter className="flex gap-x-2">

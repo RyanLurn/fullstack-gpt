@@ -39,10 +39,21 @@ function SignInForm() {
                 description={state.errors.join(". ")}
               />
             )}
-            <EmailField errors={state?.properties?.email?.errors} />
-            <PasswordField errors={state?.properties?.password?.errors} />
+            <EmailField
+              errors={state?.properties?.email?.errors}
+              isDisabled={isPending}
+            />
+            <PasswordField
+              errors={state?.properties?.password?.errors}
+              isDisabled={isPending}
+            />
             <div className="flex items-center gap-3">
-              <Checkbox name="rememberMe" id="rememberMe" defaultChecked />
+              <Checkbox
+                name="rememberMe"
+                id="rememberMe"
+                defaultChecked
+                disabled={isPending}
+              />
               <Label htmlFor="rememberMe">Remember me</Label>
             </div>
           </div>

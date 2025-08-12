@@ -38,9 +38,18 @@ function SignUpForm() {
                 description={state.errors.join(". ")}
               />
             )}
-            <NameField errors={state?.properties?.name?.errors} />
-            <EmailField errors={state?.properties?.email?.errors} />
-            <PasswordField errors={state?.properties?.password?.errors} />
+            <NameField
+              errors={state?.properties?.name?.errors}
+              isDisabled={isPending}
+            />
+            <EmailField
+              errors={state?.properties?.email?.errors}
+              isDisabled={isPending}
+            />
+            <PasswordField
+              errors={state?.properties?.password?.errors}
+              isDisabled={isPending}
+            />
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-y-2">
