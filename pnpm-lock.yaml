@@ -62,6 +62,9 @@ importers:
       drizzle-orm:
         specifier: ^0.44.4
         version: 0.44.4(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(kysely@0.28.5)
+      drizzle-zod:
+        specifier: ^0.8.3
+        version: 0.8.3(drizzle-orm@0.44.4(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(kysely@0.28.5))(zod@4.0.17)
       lucide-react:
         specifier: ^0.539.0
         version: 0.539.0(react@19.1.1)
@@ -1986,6 +1989,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.8.3:
+    resolution: {integrity: sha512-66yVOuvGhKJnTdiqj1/Xaaz9/qzOdRJADpDa68enqS6g3t0kpNkwNYjUuaeXgZfO/UWuIM9HIhSlJ6C5ZraMww==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: ^3.25.0 || ^4.0.0
 
   electron-to-chromium@1.5.200:
     resolution: {integrity: sha512-rFCxROw7aOe4uPTfIAx+rXv9cEcGx+buAF4npnhtTqCJk5KDFRnh3+KYj7rdVh6lsFt5/aPs+Irj9rZ33WMA7w==}
@@ -4464,6 +4473,11 @@ snapshots:
       '@libsql/client': 0.15.10
       '@opentelemetry/api': 1.9.0
       kysely: 0.28.5
+
+  drizzle-zod@0.8.3(drizzle-orm@0.44.4(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(kysely@0.28.5))(zod@4.0.17):
+    dependencies:
+      drizzle-orm: 0.44.4(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(kysely@0.28.5)
+      zod: 4.0.17
 
   electron-to-chromium@1.5.200: {}
 

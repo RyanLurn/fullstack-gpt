@@ -1,7 +1,8 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/features/auth";
-import { getChat } from "@/features/chat/lib/utils/get-chat";
+import { Chat } from "@/features/chat/components/chat";
+import { getChat } from "@/features/chat/db-operations/get-chat";
 
 export default async function ChatPage({
   params
@@ -17,5 +18,5 @@ export default async function ChatPage({
   }
   const { id } = await params;
   const chat = await getChat({ id, userId: session.user.id });
-  return <div>Chat {chat.id}</div>;
+  return <Chat id={chat.id} initialMessages={chat.messages} />;
 }

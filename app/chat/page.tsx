@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/features/auth";
-import { createChat } from "@/features/chat/lib/utils/create-chat";
+import { createChat } from "@/features/chat/db-operations/create-chat";
 
 export default async function ChatPage() {
   const session = await auth.api.getSession({
