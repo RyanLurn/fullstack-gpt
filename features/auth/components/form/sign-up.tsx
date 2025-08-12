@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,7 +31,7 @@ function SignUpForm() {
           <CardDescription>Welcome, let's create your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-y-6">
+          <fieldset disabled={isPending} className="flex flex-col gap-y-6">
             {state?.errors && (
               <FormAlert
                 title="Sign up failed"
@@ -40,12 +41,18 @@ function SignUpForm() {
             <NameField errors={state?.properties?.name?.errors} />
             <EmailField errors={state?.properties?.email?.errors} />
             <PasswordField errors={state?.properties?.password?.errors} />
-          </div>
+          </fieldset>
         </CardContent>
         <CardFooter className="flex-col gap-y-2">
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? "Signing up..." : "Sign up"}
           </Button>
+          <div className="flex w-full items-center justify-center gap-x-2">
+            <span>Already have an account?</span>
+            <Link href="/sign-in" className="underline">
+              Sign in
+            </Link>
+          </div>
         </CardFooter>
       </Card>
     </form>

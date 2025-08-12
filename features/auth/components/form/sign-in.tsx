@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +32,7 @@ function SignInForm() {
           <CardDescription>Welcome back</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-y-6">
+          <fieldset disabled={isPending} className="flex flex-col gap-y-6">
             {state?.errors && (
               <FormAlert
                 title="Sign in failed"
@@ -44,12 +45,18 @@ function SignInForm() {
               <Checkbox name="rememberMe" id="rememberMe" defaultChecked />
               <Label htmlFor="rememberMe">Remember me</Label>
             </div>
-          </div>
+          </fieldset>
         </CardContent>
         <CardFooter className="flex-col gap-y-2">
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? "Signing you in..." : "Sign in"}
           </Button>
+          <div className="flex w-full items-center justify-center gap-x-2">
+            <span>Don't have an account?</span>
+            <Link href="/sign-up" className="underline">
+              Sign up
+            </Link>
+          </div>
         </CardFooter>
       </Card>
     </form>
