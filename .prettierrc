@@ -9,6 +9,8 @@
   "bracketSpacing": true,
   "arrowParens": "avoid",
   "importOrder": [
+    "^react-scan",
+    "^@/components/react-scanner",
     "^(react|next?/?([a-zA-Z/]*))$",
     "<THIRD_PARTY_MODULES>",
     "^@/(.*)$",
