@@ -71,7 +71,7 @@ export async function POST(req: Request) {
     // Get AI's streaming response
     const messages = [...chat.messages, newMessage];
     const result = streamText({
-      model: groq("llama-3.1-8b-instant-wrong"),
+      model: groq("llama-3.1-8b-instant"),
       messages: convertToModelMessages(messages),
       onError: ({ error }) => {
         appLogger.error({ user: session.user, error }, "AI Error");
