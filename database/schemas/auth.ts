@@ -1,5 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { timestamps } from "@/database/helpers/timestamps";
+import { userId } from "@/database/helpers/user-id";
 
 const user = sqliteTable("user", {
   id: text("id").primaryKey(),
@@ -18,9 +19,7 @@ const session = sqliteTable("session", {
   token: text("token").notNull().unique(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+  userId,
   ...timestamps
 });
 
@@ -28,9 +27,7 @@ const account = sqliteTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+  userId,
   accessToken: text("access_token"),
   refreshToken: text("refresh_token"),
   idToken: text("id_token"),

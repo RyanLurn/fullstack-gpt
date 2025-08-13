@@ -3,7 +3,8 @@ import * as z from "zod";
 
 const serverEnv = createEnv({
   server: {
-    DB_FILE_NAME: z.string().min(1)
+    DB_FILE_NAME: z.string().min(1),
+    GROQ_API_KEY: z.string().min(1)
   },
   experimental__runtimeEnv: process.env
 });
