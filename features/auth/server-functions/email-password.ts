@@ -9,6 +9,7 @@ import {
   emailPasswordSignInSchema,
   emailPasswordSignUpSchema
 } from "@/features/auth/validators/email-password";
+import { appLogger } from "@/lib/logger";
 
 async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
   const rawFields = Object.fromEntries(formData.entries());
@@ -16,6 +17,7 @@ async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
 
   if (!result.success) {
     const errorTree = z.treeifyError(result.error);
+    appLogger.info({ errorTree, rawFields }, "Sign-up validation failed.");
     return errorTree;
   }
 
@@ -29,7 +31,10 @@ async function signUpEmailPassword(_initialState: unknown, formData: FormData) {
     if (error instanceof APIError) {
       return { errors: [error.message], properties: {} };
     } else {
-      console.error("Unexpected error during sign up:", error);
+      appLogger.error(
+        { email: result.data.email, error },
+        "Unexpected error during sign-up."
+      );
       return { errors: ["Something went wrong"], properties: {} };
     }
   }
@@ -43,6 +48,7 @@ async function signInEmailPassword(_initialState: unknown, formData: FormData) {
 
   if (!result.success) {
     const errorTree = z.treeifyError(result.error);
+    appLogger.info({ errorTree, rawFields }, "Sign-in validation failed.");
     return errorTree;
   }
 
@@ -57,7 +63,10 @@ async function signInEmailPassword(_initialState: unknown, formData: FormData) {
     if (error instanceof APIError) {
       return { errors: [error.message], properties: {} };
     } else {
-      console.error("Unexpected error during sign in:", error);
+      appLogger.error(
+        { email: result.data.email, error },
+        "Unexpected error during sign-in."
+      );
       return { errors: ["Something went wrong"], properties: {} };
     }
   }
