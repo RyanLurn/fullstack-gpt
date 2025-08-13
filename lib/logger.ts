@@ -10,6 +10,11 @@ const options: LoggerOptions = {
   level: serverEnv.LOG_LEVEL || (isDevelopment ? "trace" : "info"),
   base: {
     // app: "fullstack-gpt"
+  },
+  serializers: {
+    req: pino.stdSerializers.req,
+    res: pino.stdSerializers.res,
+    err: pino.stdSerializers.err
   }
 };
 

@@ -21,22 +21,11 @@ const auth = betterAuth({
   }),
   logger: {
     log: (level, message, ...args) => {
-      switch (level) {
-        case "info":
-          appLogger.info({ metadata: args }, message);
-          break;
-        case "warn":
-          appLogger.warn({ metadata: args }, message);
-          break;
-        case "error":
-          appLogger.error({ metadata: args }, message);
-          break;
-        case "debug":
-          appLogger.debug({ metadata: args }, message);
-          break;
-        default:
-          appLogger.info({ metadata: args }, message);
-      }
+      const pinoLevel =
+        level === "warn" || level === "error" || level === "debug"
+          ? level
+          : "info";
+      appLogger[pinoLevel]({ metadata: args }, message);
     }
   },
   emailAndPassword: {
