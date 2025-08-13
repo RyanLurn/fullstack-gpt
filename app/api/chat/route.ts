@@ -27,13 +27,16 @@ export async function POST(req: Request) {
     }
 
     // Parse request body
-    const body = (await req.json().catch(error => {
-      console.error("Failed to parse request body: ", error);
+    const body = (await req.json().catch(() => null)) as z.infer<
+      typeof requestBodySchema
+    > | null;
+    if (body === null) {
+      console.error("Failed to parse request body");
       return NextResponse.json(
         { error: "Invalid request body" },
         { status: 400 }
       );
-    })) as z.infer<typeof requestBodySchema>;
+    }
 
     // Validate request body
     const parsedBody = requestBodySchema.safeParse(body);
@@ -84,14 +87,14 @@ export async function POST(req: Request) {
       }
     });
   } catch (error) {
-    // Auth error handling
+    // Auth internal error handling
     if (error instanceof APIError) {
       console.error(
         `Better Auth Error: "${error.message}" with status "${error.status}".`
       );
+    } else {
+      console.error("Unexpected error: ", error);
     }
-
-    console.error("Unexpected error: ", error);
 
     return NextResponse.json(
       { error: "Internal server error" },
