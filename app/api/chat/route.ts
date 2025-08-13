@@ -98,7 +98,7 @@ export async function POST(req: Request) {
         { status: error.statusCode }
       );
     } else {
-      appLogger.error({ error }, "Unexpected error");
+      appLogger.error({ req, error }, "Unexpected error");
       return NextResponse.json(
         { error: "Internal server error" },
         { status: 500 }
