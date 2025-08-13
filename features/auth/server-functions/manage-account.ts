@@ -6,6 +6,7 @@ import { APIError } from "better-auth/api";
 import * as z from "zod";
 import { auth } from "@/features/auth";
 import { profileUpdateSchema } from "@/features/auth/validators/manage-account";
+import { appLogger } from "@/lib/logger";
 
 async function updateProfile(_initialState: unknown, formData: FormData) {
   const redirectUrl = formData.get("redirectUrl") as string;
@@ -14,6 +15,10 @@ async function updateProfile(_initialState: unknown, formData: FormData) {
 
   if (!result.success) {
     const errorTree = z.treeifyError(result.error);
+    appLogger.info(
+      { errorTree, rawFields },
+      "Update profile validation failed."
+    );
     return errorTree;
   }
 
@@ -28,7 +33,7 @@ async function updateProfile(_initialState: unknown, formData: FormData) {
     if (error instanceof APIError) {
       return { errors: [error.message], properties: {} };
     } else {
-      console.error("Unexpected error during update profile:", error);
+      appLogger.error({ error }, "Unexpected error during update profile.");
       return { errors: ["Something went wrong"], properties: {} };
     }
   }

@@ -1,10 +1,11 @@
 import pino, { type LoggerOptions } from "pino";
+import pretty from "pino-pretty";
 import { serverEnv } from "@/lib/env/server";
 
 // Access NODE_ENV directly from process.env, as it's set by the framework.
 const isDevelopment = process.env.NODE_ENV === "development";
 
-// Start with the base options that are always present.
+// The base options that are always present.
 const options: LoggerOptions = {
   level: serverEnv.LOG_LEVEL || (isDevelopment ? "trace" : "info"),
   base: {
@@ -12,21 +13,16 @@ const options: LoggerOptions = {
   }
 };
 
-// Conditionally add the transport property only in development.
-if (isDevelopment) {
-  options.transport = {
-    target: "pino-pretty",
-    options: {
+// When in development, create a pino-pretty stream.
+// Otherwise, the destination is undefined, and pino will use the default (stdout).
+const stream = isDevelopment
+  ? pretty({
       colorize: true,
       translateTime: "SYS:standard",
       ignore: "pid,hostname"
-    }
-  };
-}
+    })
+  : undefined;
 
-// In production, the `transport` property will be absent,
-// causing pino to fall back to its default behavior.
+const appLogger = pino(options, stream);
 
-const logger = pino(options);
-
-export { logger };
+export { appLogger };

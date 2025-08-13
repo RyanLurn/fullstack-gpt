@@ -7,6 +7,7 @@ import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH
 } from "@/features/auth/lib/constants";
+import { appLogger } from "@/lib/logger";
 
 const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -18,6 +19,26 @@ const auth = betterAuth({
       verification
     }
   }),
+  logger: {
+    log: (level, message, ...args) => {
+      switch (level) {
+        case "info":
+          appLogger.info({ metadata: args }, message);
+          break;
+        case "warn":
+          appLogger.warn({ metadata: args }, message);
+          break;
+        case "error":
+          appLogger.error({ metadata: args }, message);
+          break;
+        case "debug":
+          appLogger.debug({ metadata: args }, message);
+          break;
+        default:
+          appLogger.info({ metadata: args }, message);
+      }
+    }
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false, // this is a prototype template, enable for production apps
