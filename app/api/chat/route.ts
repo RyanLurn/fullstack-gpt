@@ -10,6 +10,7 @@ import { groq } from "@/features/chat/ai/groq";
 import { getChat } from "@/features/chat/db-operations/get-chat";
 import { messageInsertSchema } from "@/features/chat/utils/validators";
 import { generateUuid } from "@/lib/generateUuid";
+import { appLogger } from "@/lib/logger";
 
 const requestBodySchema = z.object({
   chatId: z.string(),
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
       typeof requestBodySchema
     > | null;
     if (body === null) {
-      console.error("Failed to parse request body");
+      appLogger.error({ user: session.user }, "Failed to parse request body");
       return NextResponse.json(
         { error: "Invalid request body" },
         { status: 400 }
@@ -42,7 +43,10 @@ export async function POST(req: Request) {
     const parsedBody = requestBodySchema.safeParse(body);
     if (!parsedBody.success) {
       const errorTree = z.treeifyError(parsedBody.error);
-      console.error("Invalid request body: ", errorTree);
+      appLogger.error(
+        { user: session.user, errorTree },
+        "Invalid request body"
+      );
       return NextResponse.json(
         { error: "Invalid request body" },
         { status: 400 }
@@ -67,10 +71,10 @@ export async function POST(req: Request) {
     // Get AI's streaming response
     const messages = [...chat.messages, newMessage];
     const result = streamText({
-      model: groq("llama-3.1-8b-instant"),
+      model: groq("llama-3.1-8b-instant-wrong"),
       messages: convertToModelMessages(messages),
       onError: ({ error }) => {
-        console.error("AI Error: ", error);
+        appLogger.error({ user: session.user, error }, "AI Error");
       }
     });
 
@@ -87,18 +91,18 @@ export async function POST(req: Request) {
       }
     });
   } catch (error) {
-    // Auth internal error handling
+    // Auth error handling
     if (error instanceof APIError) {
-      console.error(
-        `Better Auth Error: "${error.message}" with status "${error.status}".`
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.statusCode }
       );
     } else {
-      console.error("Unexpected error: ", error);
+      appLogger.error({ error }, "Unexpected error");
+      return NextResponse.json(
+        { error: "Internal server error" },
+        { status: 500 }
+      );
     }
-
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
   }
 }
