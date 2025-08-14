@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import { type UIMessage, useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { PromptInput } from "@/features/chat/components/prompt-input";
 import { generateUuid } from "@/lib/generateUuid";
 
 function Chat({
@@ -13,7 +14,7 @@ function Chat({
   initialMessages: UIMessage[];
 }) {
   const [prompt, setPrompt] = useState("");
-  const { messages, sendMessage } = useChat({
+  const { messages, sendMessage, status } = useChat({
     id,
     messages: initialMessages,
     generateId: generateUuid,
@@ -27,6 +28,12 @@ function Chat({
       }
     })
   });
+
+  function sendHandler(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    void sendMessage({ text: prompt });
+    setPrompt("");
+  }
 
   return (
     <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
@@ -44,20 +51,13 @@ function Chat({
         </div>
       ))}
 
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          void sendMessage({ text: prompt });
-          setPrompt("");
-        }}
-      >
-        <input
-          className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-zinc-300 p-2 shadow-xl dark:border-zinc-800 dark:bg-zinc-900"
-          value={prompt}
-          placeholder="Say something..."
-          onChange={e => setPrompt(e.currentTarget.value)}
-        />
-      </form>
+      <PromptInput
+        className="mt-4"
+        sendHandler={sendHandler}
+        prompt={prompt}
+        promptChangeHandler={e => setPrompt(e.currentTarget.value)}
+        status={status}
+      />
     </div>
   );
 }
