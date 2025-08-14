@@ -1,8 +1,8 @@
-import type { UIDataTypes, UIMessagePart, UITools } from "ai";
 import { relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { timestamps } from "@/database/helpers/timestamps";
 import { userId } from "@/database/helpers/user-id";
+import type { MessageParts } from "@/database/types";
 
 const chat = sqliteTable("chat", {
   id: text("id").primaryKey(),
@@ -15,9 +15,7 @@ const message = sqliteTable("message", {
   id: text("id").primaryKey(),
   role: text("role", { enum: ["system", "user", "assistant"] }).notNull(),
   metadata: text("metadata", { mode: "json" }),
-  parts: text("parts", { mode: "json" })
-    .notNull()
-    .$type<Array<UIMessagePart<UIDataTypes, UITools>>>(),
+  parts: text("parts", { mode: "json" }).notNull().$type<MessageParts>(),
   chatId: text("chat_id")
     .notNull()
     .references(() => chat.id, { onDelete: "cascade" }),

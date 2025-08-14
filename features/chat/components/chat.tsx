@@ -3,6 +3,7 @@
 import { type FormEvent, useState } from "react";
 import { type UIMessage, useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { Message } from "@/features/chat/components/message";
 import { PromptInput } from "@/features/chat/components/prompt-input";
 import { generateUuid } from "@/lib/generateUuid";
 
@@ -36,19 +37,9 @@ function Chat({
   }
 
   return (
-    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
-          {message.role === "user" ? "User: " : "AI: "}
-          {message.parts.map((part, i) => {
-            switch (part.type) {
-              case "text":
-                return <div key={`${message.id}-${i}`}>{part.text}</div>;
-              default:
-                return null;
-            }
-          })}
-        </div>
+        <Message key={message.id} message={message} />
       ))}
 
       <PromptInput
