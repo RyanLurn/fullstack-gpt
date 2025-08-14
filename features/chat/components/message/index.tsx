@@ -1,9 +1,10 @@
+import { memo } from "react";
 import type { UIMessage } from "ai";
 import { MessageAvatar } from "@/features/chat/components/message/avatar";
 import { MessageContent } from "@/features/chat/components/message/content";
 import { cn } from "@/lib/utils";
 
-function Message({
+const Message = memo(function Message({
   className,
   message
 }: {
@@ -25,6 +26,6 @@ function Message({
       <MessageAvatar role={message.role} />
     </div>
   );
-}
+});
 
 export { Message };

@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { convertToModelMessages, streamText } from "ai";
+import { convertToModelMessages, smoothStream, streamText } from "ai";
 import { APIError } from "better-auth/api";
 import * as z from "zod";
 import { db } from "@/database";
@@ -73,6 +73,10 @@ export async function POST(req: Request) {
     const result = streamText({
       model: groq("llama-3.1-8b-instant"),
       messages: convertToModelMessages(messages),
+      experimental_transform: smoothStream({
+        delayInMs: 30,
+        chunking: "line"
+      }),
       onError: ({ error }) => {
         appLogger.error({ user: session.user, error }, "AI Error");
       }

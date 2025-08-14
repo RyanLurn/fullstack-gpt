@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { capitalizeFirstLetter, cn } from "@/lib/utils";
 
-function MessageAvatar({
+const MessageAvatar = memo(function MessageAvatar({
   className,
   role,
   name,
@@ -23,6 +24,6 @@ function MessageAvatar({
       <AvatarFallback>{avatarName.slice(0, 2).toUpperCase()}</AvatarFallback>
     </Avatar>
   );
-}
+});
 
 export { MessageAvatar };

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { UIMessage } from "ai";
 import { StickToBottom } from "use-stick-to-bottom";
 import { Message } from "@/features/chat/components/message";
@@ -5,7 +6,7 @@ import { ScrollButton } from "@/features/chat/components/scroll-button";
 import { CHAT_CONTAINER_WIDTH } from "@/features/chat/utils/constants";
 import { cn } from "@/lib/utils";
 
-function Conversation({
+const Conversation = memo(function Conversation({
   className,
   messages
 }: {
@@ -32,6 +33,6 @@ function Conversation({
       <ScrollButton />
     </StickToBottom>
   );
-}
+});
 
 export { Conversation };

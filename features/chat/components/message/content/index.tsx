@@ -1,8 +1,9 @@
+import { memo } from "react";
 import type { UIMessage } from "ai";
 import { TextPart } from "@/features/chat/components/message/content/text-part";
 import { cn } from "@/lib/utils";
 
-function MessageContent({
+const MessageContent = memo(function MessageContent({
   id,
   parts,
   className
@@ -30,6 +31,6 @@ function MessageContent({
       </div>
     </div>
   );
-}
+});
 
 export { MessageContent };

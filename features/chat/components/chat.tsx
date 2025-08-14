@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useCallback, useState } from "react";
 import { type UIMessage, useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { Conversation } from "@/features/chat/components/conversation";
@@ -30,11 +30,21 @@ function Chat({
     })
   });
 
-  function sendHandler(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    void sendMessage({ text: prompt });
-    setPrompt("");
-  }
+  const promptChangeHandler = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setPrompt(e.currentTarget.value);
+    },
+    [setPrompt]
+  );
+
+  const sendHandler = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      void sendMessage({ text: prompt });
+      setPrompt("");
+    },
+    [prompt, sendMessage, setPrompt]
+  );
 
   return (
     <div className="flex h-full w-full flex-col gap-y-3">
@@ -43,7 +53,7 @@ function Chat({
         className="mb-3"
         sendHandler={sendHandler}
         prompt={prompt}
-        promptChangeHandler={e => setPrompt(e.currentTarget.value)}
+        promptChangeHandler={promptChangeHandler}
         status={status}
       />
     </div>

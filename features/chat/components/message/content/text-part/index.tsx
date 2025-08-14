@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Markdown, { type Options } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
@@ -74,7 +75,13 @@ const markdownComponents: Options["components"] = {
   )
 };
 
-function TextPart({ className, text }: { className?: string; text: string }) {
+const TextPart = memo(function TextPart({
+  className,
+  text
+}: {
+  className?: string;
+  text: string;
+}) {
   return (
     <div
       className={cn(
@@ -87,6 +94,6 @@ function TextPart({ className, text }: { className?: string; text: string }) {
       </Markdown>
     </div>
   );
-}
+});
 
 export { TextPart };

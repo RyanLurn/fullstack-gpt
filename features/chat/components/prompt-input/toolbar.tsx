@@ -1,9 +1,10 @@
+import { memo } from "react";
 import type { ChatStatus } from "ai";
 import { PromptInputSendButton } from "@/features/chat/components/prompt-input/send-button";
 import { PromptInputTools } from "@/features/chat/components/prompt-input/tools";
 import { cn } from "@/lib/utils";
 
-function PromptInputToolbar({
+const PromptInputToolbar = memo(function PromptInputToolbar({
   className,
   sendDisabled,
   status
@@ -18,6 +19,6 @@ function PromptInputToolbar({
       <PromptInputSendButton disabled={sendDisabled} status={status} />
     </div>
   );
-}
+});
 
 export { PromptInputToolbar };

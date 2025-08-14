@@ -1,11 +1,12 @@
 import type { ChangeEvent, FormEvent } from "react";
+import { memo } from "react";
 import type { ChatStatus } from "ai";
 import { PromptInputEditor } from "@/features/chat/components/prompt-input/editor";
 import { PromptInputToolbar } from "@/features/chat/components/prompt-input/toolbar";
 import { CHAT_CONTAINER_WIDTH } from "@/features/chat/utils/constants";
 import { cn } from "@/lib/utils";
 
-function PromptInput({
+const PromptInput = memo(function PromptInput({
   className,
   sendHandler,
   prompt,
@@ -35,6 +36,6 @@ function PromptInput({
       <PromptInputToolbar sendDisabled={!prompt} status={status} />
     </form>
   );
-}
+});
 
 export { PromptInput };
