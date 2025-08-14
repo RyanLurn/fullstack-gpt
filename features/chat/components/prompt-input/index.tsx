@@ -2,6 +2,7 @@ import type { ChangeEvent, FormEvent } from "react";
 import type { ChatStatus } from "ai";
 import { PromptInputEditor } from "@/features/chat/components/prompt-input/editor";
 import { PromptInputToolbar } from "@/features/chat/components/prompt-input/toolbar";
+import { CHAT_CONTAINER_WIDTH } from "@/features/chat/utils/constants";
 import { cn } from "@/lib/utils";
 
 function PromptInput({
@@ -20,7 +21,8 @@ function PromptInput({
   return (
     <form
       className={cn(
-        "flex w-full flex-col divide-y-2 overflow-hidden rounded-xl border bg-background shadow-sm",
+        "flex flex-col divide-y-2 overflow-hidden rounded-xl border bg-background shadow-sm",
+        CHAT_CONTAINER_WIDTH,
         className
       )}
       onSubmit={sendHandler}

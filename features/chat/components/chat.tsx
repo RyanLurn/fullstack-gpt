@@ -3,7 +3,7 @@
 import { type FormEvent, useState } from "react";
 import { type UIMessage, useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { Message } from "@/features/chat/components/message";
+import { Conversation } from "@/features/chat/components/conversation";
 import { PromptInput } from "@/features/chat/components/prompt-input";
 import { generateUuid } from "@/lib/generateUuid";
 
@@ -37,13 +37,10 @@ function Chat({
   }
 
   return (
-    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
-      {messages.map(message => (
-        <Message key={message.id} message={message} />
-      ))}
-
+    <div className="flex h-full w-full flex-col gap-y-3">
+      <Conversation className="flex-1" messages={messages} />
       <PromptInput
-        className="mt-4"
+        className="mb-3"
         sendHandler={sendHandler}
         prompt={prompt}
         promptChangeHandler={e => setPrompt(e.currentTarget.value)}
