@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo } from "react";
 import Markdown, { type Options } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import {
+  TypographyEmphasis,
+  TypographyStrong
+} from "@/components/typography/format";
 import {
   TypographyH1,
   TypographyH2,
@@ -13,62 +18,64 @@ import {
 } from "@/components/typography/list";
 import {
   TypographyBlockquote,
+  TypographyLink,
   TypographyP
 } from "@/components/typography/text";
 import { cn } from "@/lib/utils";
 
 const markdownComponents: Options["components"] = {
-  strong: ({ children, className, ...props }) => (
-    <span className={cn("font-semibold", className)} {...props}>
+  strong: ({ node, children, className, ...props }) => (
+    // Ignore ^ intentionally for optimizing rerenders during streaming
+    <TypographyStrong className={cn("", className)} {...props}>
       {children}
-    </span>
+    </TypographyStrong>
   ),
-  a: ({ children, className, ...props }) => (
-    <a
-      className={cn("font-medium text-primary underline", className)}
-      rel="noreferrer"
-      target="_blank"
-      {...props}
-    >
+  em: ({ node, children, className, ...props }) => (
+    <TypographyEmphasis className={cn("", className)} {...props}>
       {children}
-    </a>
+    </TypographyEmphasis>
   ),
-  h1: ({ children, className, ...props }) => (
+  a: ({ node, children, className, ...props }) => (
+    <TypographyLink className={cn("", className)} {...props}>
+      {children}
+    </TypographyLink>
+  ),
+  h1: ({ node, children, className, ...props }) => (
     <TypographyH1 className={cn("mb-8", className)} {...props}>
       {children}
     </TypographyH1>
   ),
-  h2: ({ children, className, ...props }) => (
+  h2: ({ node, children, className, ...props }) => (
     <TypographyH2 className={cn("mb-6", className)} {...props}>
       {children}
     </TypographyH2>
   ),
-  h3: ({ children, className, ...props }) => (
+  h3: ({ node, children, className, ...props }) => (
     <TypographyH3 className={cn("mb-4", className)} {...props}>
       {children}
     </TypographyH3>
   ),
-  h4: ({ children, className, ...props }) => (
+  h4: ({ node, children, className, ...props }) => (
     <TypographyH4 className={cn("mb-2", className)} {...props}>
       {children}
     </TypographyH4>
   ),
-  p: ({ children, className, ...props }) => (
+  p: ({ node, children, className, ...props }) => (
     <TypographyP className={cn("", className)} {...props}>
       {children}
     </TypographyP>
   ),
-  blockquote: ({ children, className, ...props }) => (
+  blockquote: ({ node, children, className, ...props }) => (
     <TypographyBlockquote className={cn("", className)} {...props}>
       {children}
     </TypographyBlockquote>
   ),
-  ol: ({ children, className, ...props }) => (
+  ol: ({ node, children, className, ...props }) => (
     <TypographyOrderedList className={cn("", className)} {...props}>
       {children}
     </TypographyOrderedList>
   ),
-  ul: ({ children, className, ...props }) => (
+  ul: ({ node, children, className, ...props }) => (
     <TypographyUnorderedList className={cn("", className)} {...props}>
       {children}
     </TypographyUnorderedList>

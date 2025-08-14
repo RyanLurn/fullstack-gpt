@@ -74,7 +74,7 @@ export async function POST(req: Request) {
       model: groq("llama-3.1-8b-instant"),
       messages: convertToModelMessages(messages),
       experimental_transform: smoothStream({
-        delayInMs: 30,
+        delayInMs: 20,
         chunking: "line"
       }),
       onError: ({ error }) => {
