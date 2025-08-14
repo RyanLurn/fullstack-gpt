@@ -19,16 +19,14 @@ const MessageContent = memo(function MessageContent({
         className
       )}
     >
-      <div className="is-user:dark">
-        {parts.map((part, i) => {
-          switch (part.type) {
-            case "text":
-              return <TextPart key={`${id}-${i}`} text={part.text} />;
-            default:
-              return null;
-          }
-        })}
-      </div>
+      {parts.map((part, i) => {
+        switch (part.type) {
+          case "text":
+            return <TextPart key={`${id}-${i}`} text={part.text} />;
+          default:
+            return null;
+        }
+      })}
     </div>
   );
 });
