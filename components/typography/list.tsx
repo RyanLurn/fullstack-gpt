@@ -10,7 +10,7 @@ function TypographyOrderedList({
   return (
     <ol
       className={cn(
-        "my-6 ml-6 list-inside list-decimal [&>li]:mt-2",
+        "my-2 ml-2 list-inside list-decimal [&>li]:mt-2",
         className
       )}
     >
@@ -28,7 +28,7 @@ function TypographyUnorderedList({
 }) {
   return (
     <ul
-      className={cn("my-6 ml-6 list-inside list-disc [&>li]:mt-2", className)}
+      className={cn("my-2 ml-2 list-inside list-disc [&>li]:mt-2", className)}
     >
       {children}
     </ul>

@@ -6,6 +6,14 @@ import {
   TypographyH3,
   TypographyH4
 } from "@/components/typography/headings";
+import {
+  TypographyOrderedList,
+  TypographyUnorderedList
+} from "@/components/typography/list";
+import {
+  TypographyBlockquote,
+  TypographyP
+} from "@/components/typography/text";
 import { cn } from "@/lib/utils";
 
 const markdownComponents: Options["components"] = {
@@ -25,29 +33,48 @@ const markdownComponents: Options["components"] = {
     </a>
   ),
   h1: ({ children, className, ...props }) => (
-    <TypographyH1 className={cn("", className)} {...props}>
+    <TypographyH1 className={cn("mb-8", className)} {...props}>
       {children}
     </TypographyH1>
   ),
   h2: ({ children, className, ...props }) => (
-    <TypographyH2 className={cn("", className)} {...props}>
+    <TypographyH2 className={cn("mb-6", className)} {...props}>
       {children}
     </TypographyH2>
   ),
   h3: ({ children, className, ...props }) => (
-    <TypographyH3 className={cn("", className)} {...props}>
+    <TypographyH3 className={cn("mb-4", className)} {...props}>
       {children}
     </TypographyH3>
   ),
   h4: ({ children, className, ...props }) => (
-    <TypographyH4 className={cn("", className)} {...props}>
+    <TypographyH4 className={cn("mb-2", className)} {...props}>
       {children}
     </TypographyH4>
+  ),
+  p: ({ children, className, ...props }) => (
+    <TypographyP className={cn("", className)} {...props}>
+      {children}
+    </TypographyP>
+  ),
+  blockquote: ({ children, className, ...props }) => (
+    <TypographyBlockquote className={cn("", className)} {...props}>
+      {children}
+    </TypographyBlockquote>
+  ),
+  ol: ({ children, className, ...props }) => (
+    <TypographyOrderedList className={cn("", className)} {...props}>
+      {children}
+    </TypographyOrderedList>
+  ),
+  ul: ({ children, className, ...props }) => (
+    <TypographyUnorderedList className={cn("", className)} {...props}>
+      {children}
+    </TypographyUnorderedList>
   )
 };
 
 function TextPart({ className, text }: { className?: string; text: string }) {
-  console.log(text);
   return (
     <div
       className={cn(
