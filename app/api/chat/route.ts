@@ -57,8 +57,7 @@ export async function POST(req: Request) {
 
     // Authorization check + get existing messages
     const chat = await getChat({
-      id: chatId,
-      userId: session.user.id
+      id: chatId
     });
 
     // Save user's newly sent message
