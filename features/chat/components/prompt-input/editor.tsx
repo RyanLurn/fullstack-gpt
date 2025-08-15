@@ -1,5 +1,4 @@
 import type { ChangeEvent, KeyboardEvent } from "react";
-import type { ChatStatus } from "ai";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
@@ -7,15 +6,13 @@ function PromptInputEditor({
   className,
   prompt,
   promptChangeHandler,
-  status
+  isDisabled
 }: {
   className?: string;
   prompt: string;
   promptChangeHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  status: ChatStatus;
+  isDisabled: boolean;
 }) {
-  const isDisabled = status === "streaming" || status === "submitted";
-
   function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter") {
       if (e.shiftKey) {
