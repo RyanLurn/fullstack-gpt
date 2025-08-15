@@ -1,3 +1,5 @@
+"use server";
+
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { and, eq } from "drizzle-orm";

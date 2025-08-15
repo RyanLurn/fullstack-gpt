@@ -4,6 +4,7 @@ import { type ChangeEvent, type FormEvent, useCallback, useState } from "react";
 import { type UIMessage, useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { Conversation } from "@/features/chat/components/conversation";
+import { NewChatButton } from "@/features/chat/components/new-chat-button";
 import { PromptInput } from "@/features/chat/components/prompt-input";
 import { generateUuid } from "@/lib/generateUuid";
 
@@ -48,6 +49,7 @@ function Chat({
 
   return (
     <div className="flex h-full w-full flex-col gap-y-3">
+      <NewChatButton className="fixed top-3 left-3 z-50" />
       <Conversation className="flex-1" messages={messages} />
       <PromptInput
         className="mb-3"
