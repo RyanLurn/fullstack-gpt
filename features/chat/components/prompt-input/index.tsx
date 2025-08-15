@@ -11,13 +11,15 @@ const PromptInput = memo(function PromptInput({
   sendHandler,
   prompt,
   promptChangeHandler,
-  status
+  status,
+  isDisabled
 }: {
   className?: string;
   sendHandler: (e: FormEvent<HTMLFormElement>) => void;
   prompt: string;
   promptChangeHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   status: ChatStatus;
+  isDisabled: boolean;
 }) {
   return (
     <form
@@ -31,9 +33,12 @@ const PromptInput = memo(function PromptInput({
       <PromptInputEditor
         prompt={prompt}
         promptChangeHandler={promptChangeHandler}
+        isDisabled={isDisabled}
+      />
+      <PromptInputToolbar
+        sendDisabled={isDisabled || !prompt}
         status={status}
       />
-      <PromptInputToolbar sendDisabled={!prompt} status={status} />
     </form>
   );
 });

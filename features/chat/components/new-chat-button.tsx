@@ -1,19 +1,33 @@
-import { memo } from "react";
-import { MessageCirclePlus } from "lucide-react";
+import { memo, startTransition } from "react";
+import { Loader2Icon, MessageCirclePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createChat } from "@/features/chat/db-operations/create-chat";
 import { cn } from "@/lib/utils";
 
-const NewChatButton = memo(({ className }: { className?: string }) => {
-  return (
-    <Button
-      onClick={() => void createChat()}
-      size="icon"
-      className={cn(className)}
-    >
-      <MessageCirclePlus />
-    </Button>
-  );
-});
+const NewChatButton = memo(
+  ({
+    className,
+    createChatAction,
+    isPending
+  }: {
+    className?: string;
+    createChatAction: () => void;
+    isPending: boolean;
+  }) => {
+    return (
+      <Button
+        disabled={isPending}
+        onClick={() => startTransition(createChatAction)}
+        size="icon"
+        className={cn(className)}
+      >
+        {isPending ? (
+          <Loader2Icon className="size-4 animate-spin" />
+        ) : (
+          <MessageCirclePlus />
+        )}
+      </Button>
+    );
+  }
+);
 
 export { NewChatButton };
